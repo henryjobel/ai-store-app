@@ -28,7 +28,7 @@ export default function BuilderPage() {
     const res = await fetch('/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ images })
+      body: JSON.stringify({ images, businessName })
     });
     setProduct(await res.json());
   };
@@ -37,7 +37,7 @@ export default function BuilderPage() {
     const res = await fetch('/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ images, field })
+      body: JSON.stringify({ images, field, businessName })
     });
     const data = await res.json();
     if (!product) return;

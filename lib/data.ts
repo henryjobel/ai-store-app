@@ -1,4 +1,4 @@
-import { Order, Product, Project, SectionConfig, ThemeId, UserProfile, Website } from './types';
+import { BuildTask, Order, Product, Project, SectionConfig, ThemeId, UserProfile, Website } from './types';
 
 export const products: Product[] = [];
 export const projects: Project[] = [];
@@ -86,4 +86,43 @@ export function defaultSections(theme: ThemeId, businessName: string): SectionCo
   ];
 
   return base;
+}
+
+export function getProjectPlan(projectId?: string): BuildTask[] {
+  const project = projects.find((item) => item.id === projectId);
+  const website = websites.find((item) => item.id === project?.websiteId);
+
+  return [
+    { id: 'setup-profile', label: 'Setup account and business profile', phase: 'setup', done: true },
+    {
+      id: 'catalog-products',
+      label: 'Generate product data from image and save product',
+      phase: 'catalog',
+      done: Boolean(project?.products.length)
+    },
+    {
+      id: 'website-generate',
+      label: 'Generate storefront with selected theme',
+      phase: 'website',
+      done: Boolean(website)
+    },
+    {
+      id: 'website-customize',
+      label: 'Customize sections with AI prompt',
+      phase: 'website',
+      done: Boolean(website?.sections.some((section) => section.body.length > 100))
+    },
+    {
+      id: 'publish-domain',
+      label: 'Publish with subdomain/custom domain',
+      phase: 'publish',
+      done: Boolean(project?.published)
+    },
+    {
+      id: 'ops-monitor',
+      label: 'Monitor orders and inventory in dashboards',
+      phase: 'operations',
+      done: orders.length > 0
+    }
+  ];
 }

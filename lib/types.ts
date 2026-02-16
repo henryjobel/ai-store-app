@@ -73,3 +73,10 @@ export type UserProfile = {
   businessName: string;
   email: string;
 };
+
+export type BuildTask = {
+  id: string;
+  label: string;
+  phase: 'setup' | 'catalog' | 'website' | 'publish' | 'operations';
+  done: boolean;
+};

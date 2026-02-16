@@ -18,6 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <Link href="/auth">Auth</Link>
               <Link href="/builder">User Dashboard</Link>
               <Link href="/studio">Website Studio</Link>
+              <Link href="/planner">Planner</Link>
               <Link href="/dashboard">Store Dashboard</Link>
               <Link href="/admin">Admin Panel</Link>
             </div>

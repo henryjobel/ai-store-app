@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 
 type Project = { id: string; businessName: string; theme: 'modern' | 'minimal' | 'bold'; published: boolean; websiteId?: string };
@@ -64,7 +65,10 @@ export default function StudioPage() {
 
   return (
     <section className="space-y-6">
-      <h1 className="text-3xl font-bold">Website Generation Studio</h1>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="text-3xl font-bold">Website Generation Studio</h1>
+        <Link href="/planner" className="rounded-lg border px-3 py-2 text-sm">Open Execution Planner</Link>
+      </div>
       <div className="grid gap-4 rounded-xl border bg-white p-5 md:grid-cols-3">
         <select value={selectedProjectId} onChange={(e) => setSelectedProjectId(e.target.value)} className="rounded-lg border px-3 py-2">
           <option value="">Select project</option>
@@ -87,7 +91,12 @@ export default function StudioPage() {
               <button onClick={applyPrompt} className="rounded-lg bg-slate-800 px-4 py-2 text-white">Apply Prompt</button>
               <button onClick={publish} className="rounded-lg bg-emerald-600 px-4 py-2 text-white">Publish</button>
             </div>
-            {website.publishedAt && <p className="text-sm text-emerald-700">Published at {new Date(website.publishedAt).toLocaleString()} ({website.customDomain || website.subdomain})</p>}
+            {website.publishedAt && (
+              <p className="text-sm text-emerald-700">
+                Published at {new Date(website.publishedAt).toLocaleString()} ({website.customDomain || website.subdomain}).{' '}
+                <Link href={`/store/${website.projectId}`} className="underline">Open live store</Link>
+              </p>
+            )}
           </div>
           <div className="space-y-3 rounded-xl border bg-white p-5">
             <h2 className="text-xl font-semibold">Live Preview (Config-driven)</h2>
